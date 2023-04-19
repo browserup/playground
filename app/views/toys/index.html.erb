@@ -1,0 +1,32 @@
+
+<div class="container-fluid">
+  <h1 class="mb-4">Toys</h1>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>  <%= link_to 'New', new_toy_path,class:"btn btn-success min-width-btn" %></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @toys.each do |toy| %>
+    <tr>
+        <td>
+          <%= toy.name %>
+        </td>
+        <td>
+          <%= toy.description %>
+        </td>
+      <td>
+        <%= link_to 'Show', toy, class:"btn btn-secondary min-width-btn" %>
+        <%= link_to 'Edit', edit_toy_path(toy),class:"btn btn-primary min-width-btn"  %>
+        <%= link_to 'Delete', toy, method: :delete, class:"btn btn-danger min-width-btn"%>
+      </td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+
+</div>

@@ -48,6 +48,9 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'rswag-specs'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -62,3 +65,7 @@ gem 'bootstrap', '~> 4.6.2'
 gem 'jquery-rails'
 gem 'simple_form'
 gem 'redis'
+
+gem 'rswag-api'
+gem 'rswag-ui'
+

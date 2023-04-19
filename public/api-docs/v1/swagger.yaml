@@ -1,0 +1,93 @@
+---
+openapi: 3.0.3
+info:
+  title: BrowserUp Playground - Toys API V1
+  version: v1
+paths:
+  "/api/toys":
+    get:
+      summary: Retrieves all toys.
+      tags:
+      - Toys
+      responses:
+        '200':
+          description: Toys found
+    post:
+      summary: Creates a toy
+      tags:
+      - Toys
+      parameters: []
+      responses:
+        '200':
+          description: toy created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                toy:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                      minLength: 1
+                    description:
+                      type: string
+                  required:
+                  - name
+                  - description
+              required:
+              - toy
+  "/api/toys/{id}":
+    get:
+      summary: Retrieves a toy
+      tags:
+      - Toys
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: toy found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                required:
+                - id
+                - name
+                - description
+        '404':
+          description: toy not found
+    delete:
+      summary: Delete a toy.
+      tags:
+      - Toys
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Destroy the toy
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: browserup-playground.com

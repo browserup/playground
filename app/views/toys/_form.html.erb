@@ -1,0 +1,25 @@
+<%= form_with(model: @toy, local: true) do |form| %>
+<% if toy.errors.any? %>
+<div id="error_explanation" class="alert alert-danger" role="alert">
+  <h5>toys.errors.count, "error") %> prohibited this toy from being saved:</h5>
+  <ul>
+    <% toy.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+    <div class="form-group">
+      <%= form.label 'name' %>
+      <%= form.text_field :name, id: :name ,class:"form-control"%>
+    </div>
+    <div class="form-group">
+      <%= form.label 'description' %>
+      <%= form.text_field :description, id: :description ,class:"form-control"%>
+      </div>
+
+<div class="actions">
+  <%= form.submit "Save", class:"btn btn-success min-width-btn" %>
+</div>
+<% end %>

@@ -1,8 +1,7 @@
 class RoomsController < ApplicationController
-  # Loads:
-  # @rooms = all rooms
-  # @room = current room when applicable
   before_action :load_entities
+
+  after_action :auto_clean, only: [:create, :update]
 
   def index
     @rooms = Room.all
@@ -13,8 +12,7 @@ class RoomsController < ApplicationController
   end
 
   def create
-    @room = Room.new permitted_parameters
-
+    @room = Room.new(permitted_parameters)
     if @room.save
       flash[:success] = "Room #{@room.name} was created successfully"
       redirect_to rooms_path
@@ -40,7 +38,7 @@ class RoomsController < ApplicationController
     end
   end
 
-  protected
+  private
 
   def load_entities
     @rooms = Room.all

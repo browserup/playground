@@ -1,4 +1,4 @@
-class CreateRooms < ActiveRecord::Migration[5.2]
+class CreateRooms < ActiveRecord::Migration[7.0]
   def change
     create_table :rooms do |t|
       t.string :name

@@ -17,3 +17,10 @@ module RailsChatTutorial
     # the framework and any gems in your application.
   end
 end
+
+# /config/application.rb
+if Rails.env.test?
+  RSpec.configure do |config|
+    config.swagger_dry_run = false
+  end
+end
