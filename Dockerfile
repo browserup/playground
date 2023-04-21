@@ -1,14 +1,33 @@
-# Dockerfile.rails
-FROM ruby:3.1.3 AS rails-toolbox
+# Base image
+FROM ruby:3.1.3
 
-# Default directory
-ENV INSTALL_PATH /opt/app
-RUN mkdir -p $INSTALL_PATH
+RUN mkdir /app
+# Set working directory
+WORKDIR /app
 
-# Install rails
-RUN gem install rails bundler
-#RUN chown -R user:user /opt/app
-WORKDIR /opt/app
+# Install system dependencies
+RUN apt-get update -qq && \
+    apt-get install -y nodejs && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Run a shell
-CMD ["/bin/sh"]
+# Install app dependencies
+COPY Gemfile* ./
+RUN bundle install --jobs 4 --retry 3
+
+# Copy the app code
+COPY . .
+
+# Set environment variables
+ENV RAILS_ENV production
+ENV RAILS_SERVE_STATIC_FILES true
+
+# Run database migrations
+RUN bundle exec rails db:migrate
+
+# Precompile assets
+RUN bundle exec rails assets:precompile
+
+# Start the app server
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+
