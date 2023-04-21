@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     clean
   end
 
-  def clean(room_limit = 10000, room_message_limit = 200, toy_limit = 200, user_limit = 100000)
+  def clean(room_limit = 1000, room_message_limit = 200, toy_limit = 200, user_limit = 1000)
     Rails.logger.info("Cleaning up old records")
     ActiveRecord::Base.transaction do
       drop_older_records(Room, room_limit) # room limit is high as destroying it during a test run may cause the test to fail
