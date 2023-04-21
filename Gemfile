@@ -51,6 +51,7 @@ group :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'rswag-specs'
+  gem 'gruf-rspec'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -68,4 +69,6 @@ gem 'redis'
 
 gem 'rswag-api'
 gem 'rswag-ui'
+
+gem 'gruf'
 
