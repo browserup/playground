@@ -7,6 +7,21 @@ modify spec/requests/toys_spec.rb
 rm public/api-docs/v1/swagger.yaml; RAILS_ENV=test rails rswag
 
 
+-----------------------------------------
+GRPC:
+
+brew install grpcurl
+
+grpcurl -plaintext -import-path lib/proto -proto lib/proto/FunToys.proto -d '{"id": 1}' 0.0.0.0:9090 rpc.FunToys/GetFunToy
+
+bundle exec rake test:get_fun_toy
+
+Demo:  https://github.com/bigcommerce/gruf-demo/tree/main/lib/proto
+Gruf:  https://github.com/bigcommerce/gruf
+
+Regenerating the GRPC API Doc at public/index.html:
+docker run --rm --platform=linux/amd64 -v $(pwd)/public/doc:/out -v $(pwd)/lib/proto:/protos pseudomuto/protoc-gen-doc
+
 ----------------------------------------
 Credits:
 

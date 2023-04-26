@@ -10,7 +10,7 @@ gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -54,6 +54,8 @@ group :test do
   gem 'gruf-rspec'
 end
 
+gem 'faker'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
@@ -72,3 +74,9 @@ gem 'rswag-ui'
 
 gem 'gruf'
 
+gem 'graphql'
+gem "graphiql-rails"
+
+gem "terser", "~> 1.1"
+
+gem "mrsk", "~> 0.11.0"

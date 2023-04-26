@@ -1,5 +1,8 @@
 {
   "name": "rails-chat-tutorial",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bootstrap": "4",
+    "bootstrap4": "^0.0.1-security"
+  }
 }

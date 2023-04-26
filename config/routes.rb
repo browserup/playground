@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  post "/graphql", to: "graphql#execute"
+  get "/healthcheck", to: "healthcheck#index"
+
   scope 'web' do
     resources :toys
     #   devise_for :users
@@ -17,7 +21,7 @@ Rails.application.routes.draw do
   end
 
   scope 'websocket' do
-     devise_for :users, :skip => [:api, :toys]
+     devise_for :users, :skip => [:api, :toys, :graphql]
      root controller: :rooms, action: :index
     resources :room_messages
     resources :rooms

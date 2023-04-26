@@ -2,36 +2,38 @@ syntax = "proto3";
 
 package rpc;
 
-service Toys {
+option go_package = "./";
+
+service FunToys {
   // Demonstrates a request response call
-  rpc GetToy(GetToyReq) returns (GetToyResp) {}
+  rpc GetFunToy(GetFunToyReq) returns (GetFunToyResp) {}
   // Demonstrates a server streamer call
-  rpc GetToys(GetToysReq) returns (stream Toy) {}
+  rpc GetFunToys(GetFunToysReq) returns (stream FunToy) {}
   // Demonstrates a client streaming call
-  rpc CreateToys(stream Toy) returns (CreateToysResp) {}
+  rpc CreateFunToys(stream FunToy) returns (CreateFunToysResp) {}
   // Demonstrates a bidirectional streaming call
-  rpc CreateToysInStream(stream Toy) returns (stream Toy) {}
+  rpc CreateFunToysInStream(stream FunToy) returns (stream FunToy) {}
 }
 
-message Toy {
+message FunToy {
   uint32 id = 1;
   string name = 2;
   string description = 3;
 }
 
-message GetToyReq {
+message GetFunToyReq {
   uint32 id = 1;
 }
 
-message GetToyResp {
-  Toy product = 1;
+message GetFunToyResp {
+  FunToy product = 1;
 }
 
-message GetToysReq {
+message GetFunToysReq {
   string search = 1;
   uint32 limit = 2;
 }
 
-message CreateToysResp {
-  repeated Toy products = 1;
+message CreateFunToysResp {
+  repeated FunToy products = 1;
 }

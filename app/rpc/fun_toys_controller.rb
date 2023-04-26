@@ -1,33 +1,33 @@
 # frozen_string_literal: true
 
 ##
-# Represents a toy service that is used for illustrating server calls
+# Represents a fun_toy service that is used for illustrating server calls
 #
-class ToysController < Gruf::Controllers::Base
-  bind ::Rpc::Toys::Service
+class FunToysController < Gruf::Controllers::Base
+  bind ::Rpc::FunToys::Service
 
   def initialize(args)
-    @received_toys = Hash.new { |h, k| h[k] = [] }
+    @received_fun_toys = Hash.new { |h, k| h[k] = [] }
     super(**args)
   end
 
   ##
   # Illustrates a request and response call
   #
-  # @return [Rpc::GetToyResp] The response
+  # @return [Rpc::GetFunToyResp] The response
   #
-  def get_toy
-    toy = ::Toy.find(request.message.id.to_i)
+  def get_fun_toy
+    fun_toy = Toy.find(request.message.id.to_i)
 
-    Rpc::GetToyResp.new(
-      toy: Rpc::Toy.new(
-        id: toy.id.to_i,
-        name: toy.name.to_s,
-        description: toy.description.to_s
+    Rpc::GetFunToyResp.new(
+      fun_toy: Rpc::FunToy.new(
+        id: fun_toy.id.to_i,
+        name: fun_toy.name.to_s,
+        description: fun_toy.description.to_s
       )
     )
   rescue ActiveRecord::RecordNotFound => _e
-    fail!(:not_found, :toy_not_found, "Failed to find Toy with ID: #{request.message.id}")
+    fail!(:not_found, :fun_toy_not_found, "Failed to find FunToy with ID: #{request.message.id}")
   rescue StandardError => e
     set_debug_info(e.message, e.backtrace[0..4])
     fail!(:internal, :internal, "ERROR: #{e.message}")
@@ -36,17 +36,17 @@ class ToysController < Gruf::Controllers::Base
   ##
   # Illustrates a server streaming call
   #
-  # @return [Rpc::Toy] An enumerable of Toys that is streamed
+  # @return [Rpc::FunToy] An enumerable of FunToys that is streamed
   #
-  def get_toys
-    return enum_for(:get_toys) unless block_given?
+  def get_fun_toys
+    return enum_for(:get_fun_toys) unless block_given?
 
-    q = ::Toy
+    q = Toy
     q = q.where('name LIKE ?', "%#{request.message.search}%") if request.message.search.present?
     limit = request.message.limit.to_i.positive? ? request.message.limit : 100
-    q.limit(limit).each do |toy|
+    q.limit(limit).each do |fun_toy|
       sleep(rand(0.01..0.3))
-      yield toy.to_proto
+      yield fun_toy.to_proto
     end
   rescue StandardError => e
     set_debug_info(e.message, e.backtrace[0..4])
@@ -56,24 +56,24 @@ class ToysController < Gruf::Controllers::Base
   ##
   # Illustrates a client streaming call
   #
-  # @return [Rpc::CreateToysResp]
+  # @return [Rpc::CreateFunToysResp]
   #
-  def create_toys
-    toys = []
+  def create_fun_toys
+    fun_toys = []
     request.messages do |message|
-      toys << Toy.new(name: message.name, description: message.description).to_proto
+      fun_toys << Toy.new(name: message.name, description: message.description).to_proto
     end
-    Rpc::CreateToysResp.new(toys: toys)
+    Rpc::CreateFunToysResp.new(fun_toys: fun_toys)
   rescue StandardError => e
     set_debug_info(e.message, e.backtrace[0..4])
     fail!(:internal, :internal, "ERROR: #{e.message}")
   end
 
   ##
-  # @return [Enumerable<Rpc::Toy>]
+  # @return [Enumerable<Rpc::FunToy>]
   #
-  def create_toys_in_stream
-    return enum_for(:create_toys_in_stream) unless block_given?
+  def create_fun_toys_in_stream
+    return enum_for(:create_fun_toys_in_stream) unless block_given?
 
     request.messages.each do |r|
       sleep(rand(0.01..0.3))

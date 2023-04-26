@@ -1,5 +1,5 @@
 # Base image
-FROM ruby:3.1.3
+FROM --platform=linux/amd64 ruby:3.1.3
 
 RUN mkdir /app
 # Set working directory
@@ -24,8 +24,7 @@ ENV RAILS_SERVE_STATIC_FILES true
 
 # Run database migrations
 RUN bundle exec rails db:migrate
-
-# Precompile assets
+RUN bundle exec rails db:seed
 RUN bundle exec rails assets:precompile
 
 # Start the app server

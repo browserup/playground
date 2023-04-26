@@ -1,0 +1,22 @@
+{
+  "group": {
+    "default": {
+      "targets": [
+        "playground"
+      ]
+    }
+  },
+  "target": {
+    "playground": {
+      "context": ".",
+      "dockerfile": "Dockerfile",
+      "tags": [
+        "browserup/playground:latest"
+      ],
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ]
+    }
+  }
+}

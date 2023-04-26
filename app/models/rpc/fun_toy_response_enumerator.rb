@@ -1,28 +1,28 @@
 # frozen_string_literal: true
 
 module Rpc
-  class ProductResponseEnumerator
-    def initialize(products, created_products, delay = 0.5)
-      @products = products
-      @created_products = created_products
+  class FunToyResponseEnumerator
+    def initialize(fun_toys, created_fun_toys, delay = 0.5)
+      @fun_toys = fun_toys
+      @created_fun_toys = created_fun_toys
       @delay = delay.to_f
     end
 
     def each_item
-      Rails.logger.info "got to ProductResponseEnumerator.each_item"
+      Rails.logger.info "got to FunToyResponseEnumerator.each_item"
       return enum_for(:each_item) unless block_given?
 
       begin
-        @products.each do |req|
-          earlier_requests = @created_products[req.name]
-          @created_products[req.name] << req
+        @fun_toys.each do |req|
+          earlier_requests = @created_fun_toys[req.name]
+          @created_fun_toys[req.name] << req
           Rails.logger.info "Got request: #{req.inspect}"
 
           earlier_requests.each do |r|
-            product = Product.new(name: r.name, price: r.price).to_proto
+            fun_toy = FunToy.new(name: r.name, description: r.description).to_proto
             sleep @delay
-            Rails.logger.info "Sending back to client: #{product.inspect}"
-            yield product
+            Rails.logger.info "Sending back to client: #{fun_toy.inspect}"
+            yield fun_toy
           end
         end
       rescue StandardError => e

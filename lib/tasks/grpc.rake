@@ -3,18 +3,18 @@
 require 'faker'
 
 namespace :test do
-  task :get_toy, %i[hostname id] => :environment do |_, args|
+  task :get_fun_toy, %i[hostname id] => :environment do |_, args|
     client = test_grpc_build_client(args, id: 1)
 
     begin
-      toy = client.call(:GetToy, id: args[:id].to_i)
-      puts toy.message.inspect
+      fun_toy = client.call(:GetFunToy, id: args[:id].to_i)
+      puts fun_toy.message.inspect
     rescue Gruf::Client::Error => e
       puts e.error.inspect
     end
   end
 
-  task :get_toys, %i[hostname search limit] => :environment do |_, args|
+  task :get_fun_toys, %i[hostname search limit] => :environment do |_, args|
     client = test_grpc_build_client(args, search: '', limit: 10)
 
     begin
@@ -22,8 +22,8 @@ namespace :test do
         limit: args[:limit].to_i
       }
       client_args[:search] = args[:search] if args[:search].to_s.present?
-      toy = client.call(:GetToys, client_args)
-      toy.message.each do |p|
+      fun_toy = client.call(:GetFunToys, client_args)
+      fun_toy.message.each do |p|
         puts p.inspect
       end
     rescue Gruf::Client::Error => e
@@ -31,37 +31,37 @@ namespace :test do
     end
   end
 
-  task :create_toys, %i[hostname number] => :environment do |_, args|
+  task :create_fun_toys, %i[hostname number] => :environment do |_, args|
     client = test_grpc_build_client(args, number: 10)
 
     begin
-      toys = []
+      fun_toys = []
       args[:number].to_i.times do
-        toys << Rpc::Toy.new(
+        fun_toys << Rpc::FunToy.new(
           name: Faker::Lorem.word,
-          description: 'Red numbered toy' + rand(99999999).to_s
+          description: 'Red fun_toy' + rand(99999999).to_s
         )
       end
-      toy = client.call(:CreateToys, toys)
-      puts toy.message.inspect
+      fun_toy = client.call(:CreateFunToys, fun_toys)
+      puts fun_toy.message.inspect
     rescue Gruf::Client::Error => e
       puts e.error.inspect
     end
   end
 
-  task :create_toys_in_stream, %i[hostname number delay] => :environment do |_, args|
+  task :create_fun_toys_in_stream, %i[hostname number delay] => :environment do |_, args|
     client = test_grpc_build_client(args, number: 10, delay: 0.5)
 
     begin
-      toys = []
+      fun_toys = []
       args[:number].to_i.times do
-        toys << Rpc::Toy.new(
+        fun_toys << Rpc::FunToy.new(
           name: Faker::Lorem.word,
-          description: 'Red numbered toy' + rand(99999999).to_s
+          description: 'Red fun_toy' + rand(99999999).to_s
         )
       end
-      enumerator = Rpc::ToyRequestEnumerator.new(toys, args[:delay].to_f)
-      client.call(:CreateToysInStream, enumerator.each_item) do |r|
+      enumerator = Rpc::FunToyRequestEnumerator.new(fun_toys, args[:delay].to_f)
+      client.call(:CreateFunToysInStream, enumerator.each_item) do |r|
         puts "Received response: #{r.inspect}"
       end
 
@@ -78,12 +78,12 @@ namespace :test do
   def test_grpc_build_client(args, defaults = {})
     args.with_defaults(
       defaults.merge(
-        hostname: "#{::ENV.fetch('GRPC_SERVER_HOST', '127.0.0.1')}:#{::ENV.fetch('GRPC_SERVER_PORT', 409090)}",
+        hostname: "#{::ENV.fetch('GRPC_SERVER_HOST', '0.0.0.0')}:#{::ENV.fetch('GRPC_SERVER_PORT', 9090)}",
         password: ::ENV.fetch('GRPC_AUTH_TOKEN', 'austin').to_s.strip
       )
     )
     ::Gruf::Client.new(
-      service: ::Rpc::Toys,
+      service: ::Rpc::FunToys,
       options: {
         hostname: args[:hostname],
         username: 'test',
