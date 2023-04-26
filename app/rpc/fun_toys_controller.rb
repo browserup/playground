@@ -1,7 +1,10 @@
-# note this is a Gruf controller, not a Rails controller and it is singular
+# frozen_string_literal: true
 
-class ToyController < Gruf::Controllers::Base
-  bind ::Rpc::Toy::Service
+##
+# Represents a toy service that is used for illustrating server calls
+#
+class ToysController < Gruf::Controllers::Base
+  bind ::Rpc::Toys::Service
 
   def initialize(args)
     @received_toys = Hash.new { |h, k| h[k] = [] }
@@ -37,6 +40,7 @@ class ToyController < Gruf::Controllers::Base
   #
   def get_toys
     return enum_for(:get_toys) unless block_given?
+
     q = ::Toy
     q = q.where('name LIKE ?', "%#{request.message.search}%") if request.message.search.present?
     limit = request.message.limit.to_i.positive? ? request.message.limit : 100
