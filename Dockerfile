@@ -27,6 +27,8 @@ RUN bundle exec rails db:migrate
 RUN bundle exec rails db:seed
 RUN bundle exec rails assets:precompile
 
+EXPOSE 3000
+
 # Start the app server
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
 
