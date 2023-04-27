@@ -24,10 +24,10 @@ RSpec.configure do |config|
       paths: {},
       servers: [
         {
-          url: 'https://{defaultHost}',
+          url: 'http://{defaultHost}',
           variables: {
             defaultHost: {
-              default: 'browserup-playground.com'
+              default: 'playground.browserup.com'
             }
           }
         }

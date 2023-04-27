@@ -87,7 +87,7 @@ paths:
         '204':
           description: Destroy the toy
 servers:
-- url: https://{defaultHost}
+- url: http://{defaultHost}
   variables:
     defaultHost:
-      default: browserup-playground.com
+      default: playground.browserup.com
