@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def auto_clean
     # we only clean up once every good while to avoid extra DB load
-    return unless rand(50) == 0
+    return unless rand(500) == 0
     clean
   end
 

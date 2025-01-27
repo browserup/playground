@@ -42,7 +42,16 @@ class RoomsController < ApplicationController
 
   def load_entities
     @rooms = Room.all
-    @room = Room.find(params[:id]) if params[:id]
+    if params[:id]
+      if params[:id] == "demo"
+        @room = Room.find_by(name: "Demo")
+        if @room.nil?
+          @room = Room.create(name: "Demo")
+        end
+      else
+        @room = Room.find params[:id]
+      end
+    end
   end
 
   def permitted_parameters

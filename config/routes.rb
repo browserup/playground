@@ -27,4 +27,5 @@ Rails.application.routes.draw do
     resources :rooms
   end
 
+  mount ActionCable.server => '/cable'
 end

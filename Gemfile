@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.3'
+ruby '3.4.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
@@ -39,7 +39,7 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
@@ -62,21 +62,18 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ################################################################################
 # Rails tutorial gems
 ################################################################################
-
+gem "google-protobuf", "~> 3.25"
 gem 'devise'
 gem 'bootstrap', '~> 4.6.2'
 gem 'jquery-rails'
 gem 'simple_form'
 gem 'redis'
-
 gem 'rswag-api'
 gem 'rswag-ui'
-
 gem 'gruf'
-
 gem 'graphql'
 gem "graphiql-rails"
 
 gem "terser", "~> 1.1"
-
-gem "mrsk", "~> 0.11.0"
+#gem "mrsk", "~> 0.11.0"
+gem "kamal"
