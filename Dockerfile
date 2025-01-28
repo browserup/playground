@@ -1,5 +1,7 @@
 # Base image
 FROM --platform=linux/amd64 ruby:3.4.1
+ARG RAILS_MASTER_KEY
+ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY
 
 RUN mkdir /app
 # Set working directory
@@ -29,6 +31,7 @@ COPY . .
 # Set environment variables
 ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
+ENV RAILS_MASTER_KEY=your_master_key_here
 
 # Run database migrations
 RUN bundle exec rails db:migrate
