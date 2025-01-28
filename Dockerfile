@@ -29,7 +29,6 @@ COPY . .
 # Set environment variables
 ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
-ENV RAILS_MASTER_KEY=$RAILS_MASTER_KEY
 
 # Run database migrations
 RUN bundle exec rails db:migrate
