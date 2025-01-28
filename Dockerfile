@@ -8,14 +8,14 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update -qq && \
     apt-get install -y \
-        build-essential \          # Compiler tools for native extensions
-        autoconf \                 # Automatic configuration generator
-        libtool \                  # Library tools
-        pkg-config \               # Package configuration tool
-        libssl-dev \               # SSL/TLS libraries
-        zlib1g-dev \               # Compression libraries
-        libprotobuf-dev \          # Protobuf library
-        protobuf-compiler \        # Protobuf compiler
+        build-essential \
+        autoconf \
+        libtool \
+        pkg-config \
+        libssl-dev \
+        zlib1g-dev \
+        libprotobuf-dev \
+        protobuf-compiler \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
