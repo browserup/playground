@@ -7,9 +7,7 @@ WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update -qq && \
-    apt-get install -y nodejs \
-        libtool pkg-config \
-        build-essential \
+    apt-get install -y nodejs build-essential autoconf libtool pkg-config \
         libssl-dev \
         zlib1g-dev \
         libprotobuf-dev \
