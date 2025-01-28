@@ -8,6 +8,7 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update -qq && \
     apt-get install -y nodejs \
+        libtool pkg-config \
         build-essential \
         libssl-dev \
         zlib1g-dev \
@@ -16,7 +17,7 @@ RUN apt-get update -qq && \
     && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-
+build-essential autoconf libtool pkg-config
 
 # Install app dependencies
 COPY Gemfile* ./
