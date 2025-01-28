@@ -7,7 +7,7 @@ WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update -qq && \
-    apt-get install -y nodejs && \
+    apt-get install -y nodejs \
         build-essential \
         libssl-dev \
         zlib1g-dev \
