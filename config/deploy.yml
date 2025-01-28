@@ -6,7 +6,22 @@ image: browserup/playground
 
 # Deploy to these servers.
 servers:
-  - 147.135.114.251
+  web:
+    - 15.204.233.203
+  # job:
+  #   hosts:
+  #     - 192.168.0.1
+  #   cmd: bin/jobs
+
+# Enable SSL auto certification via Let's Encrypt and allow for multiple apps on a single web server.
+# Remove this section when using multiple web servers and ensure you terminate SSL at your load balancer.
+#
+# Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
+proxy:
+  ssl: true
+  host: playground.browserup.com
+  # Proxy connects to your container on port 80 by default.
+  # app_port: 3000
 
 # Credentials for your image host.
 registry:
@@ -14,37 +29,56 @@ registry:
   # server: registry.digitalocean.com / ghcr.io / ...
   username: browserup
 
-  # Always use an access token rather than real password when possible.
+  # Always use an access token rather than real password (pulled from .kamal/secrets).
   password:
-    - MRSK_REGISTRY_PASSWORD
-
-# Inject ENV variables into containers (secrets come from .env).
-env:
-#   clear:
-#     DB_HOST: 192.168.0.2
-  secret:
-    - RAILS_MASTER_KEY
-
-# Call a broadcast command on deploys.
-# audit_broadcast_cmd:
-#   bin/broadcast_to_bc
-
-# Use a different ssh user than root
-#ssh:
-#  user: debian
+    - KAMAL_REGISTRY_PASSWORD
 
 # Configure builder setup.
-# builder:
-#   args:
-#     RUBY_VERSION: 3.2.0
-#   secrets:
-#     - GITHUB_TOKEN
-#   remote:
-#     arch: amd64
-#     host: ssh://app@192.168.0.1
+builder:
+  arch: amd64
+  # Pass in additional build args needed for your Dockerfile.
+  # args:
+  #   RUBY_VERSION: <%= File.read('.ruby-version').strip %>
 
-# Use accessory services (secrets come from .env).
-# accessories:
+# Inject ENV variables into containers (secrets come from .kamal/secrets).
+#
+# env:
+#   clear:
+#     DB_HOST: 192.168.0.2
+#   secret:
+#     - RAILS_MASTER_KEY
+
+# Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
+# "bin/kamal logs -r job" will tail logs from the first server in the job section.
+#
+# aliases:
+#   shell: app exec --interactive --reuse "bash"
+
+# Use a different ssh user than root
+#
+ssh:
+  user: ebeland
+
+# Use a persistent storage volume.
+#
+# volumes:
+#   - "app_storage:/app/storage"
+
+# Bridge fingerprinted assets, like JS and CSS, between versions to avoid
+# hitting 404 on in-flight requests. Combines all files from new and old
+# version inside the asset_path.
+#
+# asset_path: /app/public/assets
+
+# Configure rolling deploys by setting a wait time between batches of restarts.
+#
+# boot:
+#   limit: 10 # Can also specify as a percentage of total hosts, such as "25%"
+#   wait: 2
+
+# Use accessory services (secrets come from .kamal/secrets).
+#
+#accessories:
 #   db:
 #     image: mysql:8.0
 #     host: 192.168.0.2
@@ -56,23 +90,14 @@ env:
 #         - MYSQL_ROOT_PASSWORD
 #     files:
 #       - config/mysql/production.cnf:/etc/mysql/my.cnf
-#       - db/production.sql.erb:/docker-entrypoint-initdb.d/setup.sql
+#       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
 #     directories:
 #       - data:/var/lib/mysql
 #   redis:
-#     image: redis:7.0
+#     image: valkey/valkey:8
 #     host: 192.168.0.2
 #     port: 6379
 #     directories:
 #       - data:/data
 
-# Configure custom arguments for Traefik
-# traefik:
-#   args:
-#     accesslog: true
-#     accesslog.format: json
-
 # Configure a custom healthcheck (default is /up on port 3000)
-healthcheck:
-  path: /healthcheck
-  port: 3000

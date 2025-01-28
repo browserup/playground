@@ -6,5 +6,13 @@ class HealthCheckController < ApplicationController
       format.json { render json: { status: 'OK' } }
     end
   end
+
+  def up
+    respond_to do |format|
+      format.html { render plain: 'OK'}
+      format.json { render json: { status: 'OK' } }
+    end
+  end
+
 end
 

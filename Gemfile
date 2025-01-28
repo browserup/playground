@@ -75,5 +75,5 @@ gem 'graphql'
 gem "graphiql-rails"
 
 gem "terser", "~> 1.1"
-#gem "mrsk", "~> 0.11.0"
+#gem "kamal", "~> 0.11.0"
 gem "kamal"

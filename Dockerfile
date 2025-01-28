@@ -1,5 +1,5 @@
 # Base image
-FROM --platform=linux/amd64 ruby:3.1.3
+FROM --platform=linux/amd64 ruby:3.4.1
 
 RUN mkdir /app
 # Set working directory

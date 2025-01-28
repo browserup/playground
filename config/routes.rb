@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   post "/graphql", to: "graphql#execute"
   get "/healthcheck", to: "health_check#index"
 
+  get "/up", to: "health_check#up"
+
   scope 'web' do
     resources :toys
     #   devise_for :users

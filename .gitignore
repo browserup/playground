@@ -36,6 +36,7 @@
 
 /config/credentials/production.key
 
+.kamal/*
 playground.sln
 .editorconfig
 .vs
