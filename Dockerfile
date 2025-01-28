@@ -8,8 +8,15 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update -qq && \
     apt-get install -y nodejs && \
-    apt-get clean && \
+        build-essential \
+        libssl-dev \
+        zlib1g-dev \
+        libprotobuf-dev \
+        protobuf-compiler \
+    && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+
 
 # Install app dependencies
 COPY Gemfile* ./
