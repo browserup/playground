@@ -41,3 +41,4 @@ playground.sln
 .editorconfig
 .vs
 .idea/*
+.idea/playground.iml
