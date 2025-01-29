@@ -30,6 +30,8 @@ COPY . .
 ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 
+RUN printenv | sort
+
 # Run database migrations
 RUN bundle exec rails db:migrate
 RUN bundle exec rails db:seed
