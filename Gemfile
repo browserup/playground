@@ -14,7 +14,7 @@ gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby
+gem 'mini_racer', platforms: :ruby
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production
@@ -73,7 +73,6 @@ gem 'rswag-ui'
 gem 'gruf'
 gem 'graphql'
 gem "graphiql-rails"
-
 gem "terser", "~> 1.1"
 #gem "kamal", "~> 0.11.0"
 gem "kamal"
