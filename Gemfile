@@ -76,3 +76,6 @@ gem "graphiql-rails"
 gem "terser", "~> 1.1"
 gem "kamal"
 gem 'thruster'
+gem 'solid_queue'
+gem 'solid_cable'
+gem 'solid_cache'
