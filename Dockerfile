@@ -89,8 +89,8 @@ RUN groupadd --system --gid 1000 rails && \
 USER 1000:1000
 
 # Set environment variables
-ENV RAILS_ENV production
-ENV RAILS_SERVE_STATIC_FILES true
+ENV RAILS_ENV=production
+ENV RAILS_SERVE_STATIC_FILES=true
 
 # Run database migrations
 RUN bundle exec rails db:migrate
