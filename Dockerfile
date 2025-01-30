@@ -33,7 +33,7 @@ FROM base AS build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
         build-essential git pkg-config \
-        autoconf libtool libssl-dev zlib1g-dev \
+        autoconf libtool libssl-dev zlib1g-dev nodejs \
         libprotobuf-dev protobuf-compiler && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
