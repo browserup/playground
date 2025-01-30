@@ -92,11 +92,6 @@ USER 1000:1000
 ENV RAILS_ENV=production
 ENV RAILS_SERVE_STATIC_FILES=true
 
-# Run database migrations
-RUN bundle exec rails db:migrate
-RUN bundle exec rails db:seed
-RUN bundle exec rails assets:precompile
-
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
